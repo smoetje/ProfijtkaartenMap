@@ -1,17 +1,17 @@
 <template>
   <div id="app">
     <img src="./assets/logo.png">
-    <HelloWorld/>
+    <GoogleMaps/>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld'
+import GoogleMaps from './components/GoogleMaps'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    GoogleMaps
   }
 }
 </script>
