@@ -1,0 +1,114 @@
+[
+  {
+    "naam": "Boekhandel Hoger Op",
+    "adres": "Torhoutsesteenweg 442",
+    "postcode": "8400",
+    "stad": "Oostende",
+    "country": "Belgie",
+    "tel": "+3259705783"
+  },
+  {
+    "naam": "Dirk en Christine Sijmijnck-Mortier",
+    "adres": "Leeuwerikenstraat 79B",
+    "postcode": "8400",
+    "stad": "Oostende",
+    "country": "Belgie",
+    "tel": "+3259433718"
+  },
+  {
+    "naam": "Kapsalon Vic",
+    "adres": "Nieuwpoortsesteenweg 465",
+    "postcode": "8400",
+    "stad": "Oostende",
+    "country": "Belgie",
+    "tel": "+3259802930"
+  },
+  {
+    "naam": "J.O.C 't Scharnier",
+    "adres": "Hoogstraat 17",
+    "postcode": "8460",
+    "stad": "Oudenburg",
+    "country": "Belgie",
+    "tel": ""
+  },
+  {
+    "naam": "Bistro Eugène",
+    "adres": "Brugsesteenweg 1/27",
+    "postcode": "8450",
+    "stad": "Bredene",
+    "country": "Belgie",
+    "tel": "+32484595189"
+  },
+  {
+    "naam": "'t Koelschip",
+    "adres": "Van Iseghemlaan 101",
+    "postcode": "8400",
+    "stad": "Oostende",
+    "country": "Belgie",
+    "tel": "+32494246257"
+  },
+  {
+    "naam": "CC De Grote Post",
+    "adres": "Hendrik Serruyslaan 18a",
+    "postcode": "8400",
+    "stad": "Oostende",
+    "country": "Belgie",
+    "tel": "+3259339000"
+  },
+  {
+    "naam": "Toerisme Oostende",
+    "adres": "Monacoplein 2",
+    "postcode": "8400",
+    "stad": "Oostende",
+    "country": "Belgie",
+    "tel": "+3259255313"
+  },
+  {
+    "naam": "Sassy's",
+    "adres": "Steensedijk 23",
+    "postcode": "8400",
+    "stad": "Oostende",
+    "country": "Belgie",
+    "tel": "+3259326104"
+  },
+  {
+    "naam": "Lilly Lou",
+    "adres": "Hoogstraat 5",
+    "postcode": "8470",
+    "stad": "Gistel",
+    "country": "Belgie",
+    "tel": "+32477846089"
+  },
+  {
+    "naam": "'t Kroegske",
+    "adres": "St.Paulusstraat 80",
+    "postcode": "8400",
+    "stad": "Oostende",
+    "country": "Belgie",
+    "tel": "+3259808191"
+  },
+  {
+    "naam": "B&M Optiek",
+    "adres": "Sint-Petrus-en-Paulusplein 6",
+    "postcode": "8400",
+    "stad": "Oostende",
+    "country": "Belgie",
+    "tel": "+3259430699"
+  },
+  {
+    "naam": "Hobbycenter",
+    "adres": "Archimedesstraat 56",
+    "postcode": "8400",
+    "stad": "Oostende",
+    "country": "Belgie",
+    "tel": "+3259703956"
+  },
+  {
+    "naam": "CM Oostende",
+    "adres": "Ieperstraat 10",
+    "postcode": "8400",
+    "stad": "Oostende",
+    "country": "Belgie",
+    "tel": "+3259552611"
+  }
+]

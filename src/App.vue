@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <img src="./assets/logo.png">
-    <GoogleMaps/>
+    <GoogleMaps name="testje"></GoogleMaps>
   </div>
 </template>
 
