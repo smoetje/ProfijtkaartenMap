@@ -23,7 +23,12 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 0px;
-  margin-left: -18px;
-  margin-right: -18px;
+}
+
+@media (max-width: 650px) {
+  #app {
+    margin-left: -18px;
+    margin-right: -18px;
+  }
 }
 </style>

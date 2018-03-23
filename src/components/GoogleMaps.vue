@@ -3,6 +3,7 @@
 </template>
 <script>
   import axios from 'axios';
+  import matrooskaart from '../assets/matrooskaart.svg';
 
   export default {
     name: 'google',
@@ -152,9 +153,16 @@
           content: contentString
         });
 
+        let icon = {
+          url: matrooskaart,
+          anchor: new google.maps.Point(25,50),
+          scaledSize: new google.maps.Size(50,50)
+        };
+
         const marker = new google.maps.Marker({
           position,
           animation: google.maps.Animation.DROP,
+          icon: icon,
           map: that.map
         });
 
