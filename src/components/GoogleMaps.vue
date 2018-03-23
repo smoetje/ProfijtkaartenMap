@@ -101,10 +101,7 @@
             let geocoder = new google.maps.Geocoder();
             let address = `${this.contactList[i].adres}, ${this.contactList[i].postcode} ${this.contactList[i].stad}, ${this.contactList[i].country}`;
             let id = this.contactList[i].id;
-            console.log(id);
-            //console.log(this.contactlist[i]);
-
-            //let id = this.contactlist[i].id;
+            // console.log(id);
             geocoder.geocode({ address: address }, function(results, status) {
               if (status === 'OK') {
                 let coord = {
@@ -119,11 +116,11 @@
                     coord: JSON.stringify(coord)
                   }
                 }).then((resp) => {
-                  console.log(resp.data);
+                  // console.log(resp.data);
 
                 }).catch((resp) => {
-                  console.log(resp);
-                  //alert('API not accessible!')
+                  // console.log(resp);
+                  console.warn('Server not responding!')
                 });
 
               } else {
@@ -133,17 +130,36 @@
           } else {
             this.putMarkers(this.contactList[i]);
           }
-
         }
       },
       putMarkers: function(contact) {
         let that = this;
         let coord = JSON.parse(contact.coord)
         const position = new google.maps.LatLng(coord.lat, coord.lng);
+
+        let contentString = `<div id="content">
+          <div id="siteNotice">
+          </div>
+          <h1 id="firstHeading" class="firstHeading">${contact.naam}</h1>
+          <div id="bodyContent">
+          <p>${contact.adres}</p>
+          <p>${contact.postcode} ${contact.stad}</p>
+          <p>${contact.tel}</p>
+          </div></div>`;
+
+        const infowindow = new google.maps.InfoWindow({
+          content: contentString
+        });
+
         const marker = new google.maps.Marker({
           position,
           map: that.map
         });
+
+        marker.addListener('click', function() {
+          infowindow.open(that.map, marker);
+        });
+
         this.markers.push(marker);
         this.map.fitBounds(that.bounds.extend(position))
       }
