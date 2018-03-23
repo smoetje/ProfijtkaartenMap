@@ -154,6 +154,7 @@
 
         const marker = new google.maps.Marker({
           position,
+          animation: google.maps.Animation.DROP,
           map: that.map
         });
 
