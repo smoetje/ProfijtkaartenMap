@@ -3,7 +3,6 @@
 </template>
 <script>
   import axios from 'axios';
-  import locaties from '../locaties';
 
   export default {
     name: 'google',
@@ -11,70 +10,73 @@
     data: function () {
       return {
         mapName: this.name + "-map",
-        markerCoordinates: [{
-          latitude: 51.501527,
-          longitude: -0.1921837
-        }, {
-          latitude: 51.505874,
-          longitude: -0.1838486
-        }, {
-          latitude: 51.4998973,
-          longitude: -0.202432
-        }],
+        // markerCoordinates: [{
+        //   latitude: 51.501527,
+        //   longitude: -0.1921837
+        // }, {
+        //   latitude: 51.505874,
+        //   longitude: -0.1838486
+        // }, {
+        //   latitude: 51.4998973,
+        //   longitude: -0.202432
+        // }],
         currentLocation: null,
         map: null,
         bounds: null,
         markers: [],
         contactList: [],
-        outputList: [],
         infoWindow: null
       }
     },
     beforeMount() {
+      axios({
+        method: 'get',
+        url: `${this.$access.url}api/verkooppunten`,
+      }).then((resp) => {
+        //console.log(resp.data);
+        this.contactList = resp.data;
+        this.verifyAllCoordinates();
 
+      }).catch((resp) => {
+        console.log(resp);
+        //alert('Database not accessible!')
+      });
     },
     mounted() {
       this.bounds = new google.maps.LatLngBounds();
-      const element = document.getElementById(this.mapName)
-      const mapCentre = this.markerCoordinates[0]
+      const element = document.getElementById(this.mapName);
+      const mapCentre = {
+        latitude: 51.2299874,
+        longitude: 2.9223107000000255
+      };
       const options = {
         center: new google.maps.LatLng(mapCentre.latitude, mapCentre.longitude)
-      }
+      };
 
       this.map = new google.maps.Map(element, options);
-      this.markerCoordinates.forEach((coord) => {
-        const position = new google.maps.LatLng(coord.latitude, coord.longitude);
-        const marker = new google.maps.Marker({
-          position,
-          map: this.map
-        });
-        this.markers.push(marker)
-        this.map.fitBounds(this.bounds.extend(position))
-      });
 
       this.infoWindow = new google.maps.InfoWindow;
 
-      // Try HTML5 geolocation.
-      let that = this;
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(function(position) {
-          let pos = {
-            lat: position.coords.latitude,
-            lng: position.coords.longitude
-          };
-
-          that.infoWindow.setPosition(pos);
-          that.infoWindow.setContent('Je bent hier.');
-          that.infoWindow.open(that.map);
-          that.map.setCenter(pos);
-        }, function() {
-          that.handleLocationError(true, that.infoWindow, that.map.getCenter());
-        });
-      } else {
-        // Browser doesn't support Geolocation
-        that.handleLocationError(false, that.infoWindow, that.map.getCenter());
-      }
-
+      // // Try HTML5 geolocation.
+      // let that = this;
+      // if (navigator.geolocation) {
+      //   navigator.geolocation.getCurrentPosition(function(position) {
+      //     let pos = {
+      //       lat: position.coords.latitude,
+      //       lng: position.coords.longitude
+      //     };
+      //
+      //     that.infoWindow.setPosition(pos);
+      //     that.infoWindow.setContent('Je bent hier.');
+      //     that.infoWindow.open(that.map);
+      //     that.map.setCenter(pos);
+      //   }, function() {
+      //     that.handleLocationError(true, that.infoWindow, that.map.getCenter());
+      //   });
+      // } else {
+      //   // Browser doesn't support Geolocation
+      //   that.handleLocationError(false, that.infoWindow, that.map.getCenter());
+      // }
 
       this.init();
 
@@ -88,42 +90,62 @@
         infoWindow.open(this.map);
       },
       init: function() {
-        this.contactList = locaties;
-        this.geocoder();
-
+        // this.putMarkers();
       },
-      geocoder: function(){
-        let geocoder = new google.maps.Geocoder();
-        let that = this;
-        let address = [];
-        this.contactList.forEach((elem) => {
-          address.push(`${elem.adres}, ${elem.postcode} ${elem.stad}, ${elem.country}`);
-          // console.log(address);
-        });
+      verifyAllCoordinates: function() {
+        // Check coordinates & add missing data
+        for (let i = 0; i < this.contactList.length; i++){
+          //console.log(this.contactList[i].coord);
+          if(this.contactList[i].coord === null){
+            // Search coordinates (& save later to server)
+            let geocoder = new google.maps.Geocoder();
+            let address = `${this.contactList[i].adres}, ${this.contactList[i].postcode} ${this.contactList[i].stad}, ${this.contactList[i].country}`;
+            let id = this.contactList[i].id;
+            console.log(id);
+            //console.log(this.contactlist[i]);
 
-        // https://stackoverflow.com/questions/19640055/multiple-markers-google-map-api-v3-from-array-of-addresses-and-avoid-over-query
-        for(i=0;i<address.length;i++) {
-          geocoder.geocode({ address }, function(results, status){
-            if (status === 'OK') {
-              console.log(results);
-              const marker = new google.maps.Marker({
-                position: results[0].geometry.location,
-                map: that.map
-              });
-            } else {
-              if(status === 'OVER_QUERY_LIMIT') {
-                console.log('retry this element');
+            //let id = this.contactlist[i].id;
+            geocoder.geocode({ address: address }, function(results, status) {
+              if (status === 'OK') {
+                let coord = {
+                  lat: results[0].geometry.location.lat(),
+                  lng: results[0].geometry.location.lng()
+                };
+                axios({
+                  method: 'put',
+                  url: `http://proggenerator.local/api/verkooppunten/${this}`,
+                  data: {
+                    id: this,
+                    coord: JSON.stringify(coord)
+                  }
+                }).then((resp) => {
+                  console.log(resp.data);
 
-                alert('Geocoding unsuccesful for the following reason: ' + status);
+                }).catch((resp) => {
+                  console.log(resp);
+                  //alert('API not accessible!')
+                });
+
               } else {
-                alert('Geocoding unsuccesful for the following reason: ' + status);
+                console.warn('Geocoding not succesful for this address: ' + address + '\nReason: ' + status);
               }
-            }
-          });
+            }.bind( id ));
+          } else {
+            this.putMarkers(this.contactList[i]);
+          }
+
         }
-
-
-
+      },
+      putMarkers: function(contact) {
+        let that = this;
+        let coord = JSON.parse(contact.coord)
+        const position = new google.maps.LatLng(coord.lat, coord.lng);
+        const marker = new google.maps.Marker({
+          position,
+          map: that.map
+        });
+        this.markers.push(marker);
+        this.map.fitBounds(that.bounds.extend(position))
       }
     },
   };

@@ -1,0 +1,20 @@
+{
+  "local": {
+    "hosts": ["localhost:8080", "oostendezingt.local"],
+    "api":
+    {
+      "url": "\/\/proggenerator.local/",
+      "id": 10,
+      "key": "AophDMNKUdC7m9QVCZlSvwIqHhS59OPNDp6FeVal"
+    }
+  },
+  "remote": {
+    "hosts": ["www.paulusfeesten.be", "smoetje.be", "www.smoetje.be", "paulusfeesten.be"],
+    "api":
+    {
+      "url": "\/\/www.smoetje.eu\/",
+      "id": 2,
+      "key": "Xlz8ZISQzdUR2wyUiW4mxNY447KteC6tHxCVoIqZ"
+    }
+  }
+}

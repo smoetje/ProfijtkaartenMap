@@ -5,7 +5,12 @@
     "postcode": "8400",
     "stad": "Oostende",
     "country": "Belgie",
-    "tel": "+3259705783"
+    "tel": "+3259705783",
+    "coord":
+    {
+      "lat": null,
+      "lng": null
+    }
   },
   {
     "naam": "Dirk en Christine Sijmijnck-Mortier",
@@ -13,7 +18,12 @@
     "postcode": "8400",
     "stad": "Oostende",
     "country": "Belgie",
-    "tel": "+3259433718"
+    "tel": "+3259433718",
+    "coord":
+    {
+      "lat": null,
+      "lng": null
+    }
   },
   {
     "naam": "Kapsalon Vic",
@@ -21,7 +31,12 @@
     "postcode": "8400",
     "stad": "Oostende",
     "country": "Belgie",
-    "tel": "+3259802930"
+    "tel": "+3259802930",
+    "coord":
+    {
+      "lat": null,
+      "lng": null
+    }
   },
   {
     "naam": "J.O.C 't Scharnier",
@@ -29,7 +44,12 @@
     "postcode": "8460",
     "stad": "Oudenburg",
     "country": "Belgie",
-    "tel": ""
+    "tel": "",
+    "coord":
+    {
+      "lat": null,
+      "lng": null
+    }
   },
   {
     "naam": "Bistro Eugène",
@@ -37,7 +57,12 @@
     "postcode": "8450",
     "stad": "Bredene",
     "country": "Belgie",
-    "tel": "+32484595189"
+    "tel": "+32484595189",
+    "coord":
+    {
+      "lat": null,
+      "lng": null
+    }
   },
   {
     "naam": "'t Koelschip",
@@ -45,7 +70,12 @@
     "postcode": "8400",
     "stad": "Oostende",
     "country": "Belgie",
-    "tel": "+32494246257"
+    "tel": "+32494246257",
+    "coord":
+    {
+      "lat": null,
+      "lng": null
+    }
   },
   {
     "naam": "CC De Grote Post",
@@ -53,7 +83,12 @@
     "postcode": "8400",
     "stad": "Oostende",
     "country": "Belgie",
-    "tel": "+3259339000"
+    "tel": "+3259339000",
+    "coord":
+    {
+      "lat": null,
+      "lng": null
+    }
   },
   {
     "naam": "Toerisme Oostende",
@@ -61,7 +96,12 @@
     "postcode": "8400",
     "stad": "Oostende",
     "country": "Belgie",
-    "tel": "+3259255313"
+    "tel": "+3259255313",
+    "coord":
+    {
+      "lat": null,
+      "lng": null
+    }
   },
   {
     "naam": "Sassy's",
@@ -69,7 +109,12 @@
     "postcode": "8400",
     "stad": "Oostende",
     "country": "Belgie",
-    "tel": "+3259326104"
+    "tel": "+3259326104",
+    "coord":
+    {
+      "lat": null,
+      "lng": null
+    }
   },
   {
     "naam": "Lilly Lou",
@@ -77,7 +122,12 @@
     "postcode": "8470",
     "stad": "Gistel",
     "country": "Belgie",
-    "tel": "+32477846089"
+    "tel": "+32477846089",
+    "coord":
+    {
+      "lat": null,
+      "lng": null
+    }
   },
   {
     "naam": "'t Kroegske",
@@ -85,7 +135,12 @@
     "postcode": "8400",
     "stad": "Oostende",
     "country": "Belgie",
-    "tel": "+3259808191"
+    "tel": "+3259808191",
+    "coord":
+    {
+      "lat": null,
+      "lng": null
+    }
   },
   {
     "naam": "B&M Optiek",
@@ -93,7 +148,12 @@
     "postcode": "8400",
     "stad": "Oostende",
     "country": "Belgie",
-    "tel": "+3259430699"
+    "tel": "+3259430699",
+    "coord":
+    {
+      "lat": null,
+      "lng": null
+    }
   },
   {
     "naam": "Hobbycenter",
@@ -101,7 +161,12 @@
     "postcode": "8400",
     "stad": "Oostende",
     "country": "Belgie",
-    "tel": "+3259703956"
+    "tel": "+3259703956",
+    "coord":
+    {
+      "lat": null,
+      "lng": null
+    }
   },
   {
     "naam": "CM Oostende",
@@ -109,6 +174,11 @@
     "postcode": "8400",
     "stad": "Oostende",
     "country": "Belgie",
-    "tel": "+3259552611"
+    "tel": "+3259552611",
+    "coord":
+    {
+      "lat": null,
+      "lng": null
+    }
   }
 ]
