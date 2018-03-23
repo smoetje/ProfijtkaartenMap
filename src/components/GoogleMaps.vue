@@ -101,6 +101,7 @@
             let geocoder = new google.maps.Geocoder();
             let address = `${this.contactList[i].adres}, ${this.contactList[i].postcode} ${this.contactList[i].stad}, ${this.contactList[i].country}`;
             let id = this.contactList[i].id;
+            let url = this.$access.url;
             // console.log(id);
             geocoder.geocode({ address: address }, function(results, status) {
               if (status === 'OK') {
@@ -110,9 +111,9 @@
                 };
                 axios({
                   method: 'put',
-                  url: `http://proggenerator.local/api/verkooppunten/${this}`,
+                  url: `${this.url}api/verkooppunten/${this.id}`,
                   data: {
-                    id: this,
+                    id: this.id,
                     coord: JSON.stringify(coord)
                   }
                 }).then((resp) => {
@@ -126,7 +127,7 @@
               } else {
                 console.warn('Geocoding not succesful for this address: ' + address + '\nReason: ' + status);
               }
-            }.bind( id ));
+            }.bind( { id: id, url: url } ));
           } else {
             this.putMarkers(this.contactList[i]);
           }
@@ -168,8 +169,8 @@
 </script>
 <style scoped>
   .google-map {
-    width: 800px;
-    height: 600px;
+    width: inherit;
+    min-height: 430px;
     margin: 0 auto;
     background: gray;
   }
