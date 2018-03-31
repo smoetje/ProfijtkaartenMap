@@ -1,5 +1,15 @@
 <template>
-  <div class="google-map" :id="mapName"></div>
+  <div>
+    <div class="google-map" :id="mapName"></div>
+    <p>Matrooskaarten kunnen worden aangekocht op de volgende locaties:</p>
+    <ul>
+      <!--<li v-for="contact in contactList" :key="contact.id" :value="contact" v-on:click="showMarkerInfo">-->
+      <li v-for="contact in contactList" :key="contact.id" :value="contact">
+        {{ contact.id }} {{contact.naam}}
+      </li>
+    </ul>
+    <button v-on:click="greet">test</button>
+  </div>
 </template>
 <script>
   import axios from 'axios';
@@ -26,7 +36,7 @@
         bounds: null,
         markers: [],
         contactList: [],
-        infoWindow: null
+        infoWindow: null,
       }
     },
     beforeMount() {
@@ -40,7 +50,7 @@
 
       }).catch((resp) => {
         console.log(resp);
-        //alert('Database not accessible!')
+        //alert('Adressen server momenteel niet toegankelijk, probeer het later eens opnieuw!')
       });
     },
     mounted() {
@@ -80,7 +90,6 @@
       // }
 
       this.init();
-
     },
     methods: {
       handleLocationError: function(browserHasGeolocation, infoWindow, pos) {
@@ -171,16 +180,45 @@
         });
 
         this.markers.push(marker);
+
+        // console.log(this.markers);
+
         this.map.fitBounds(that.bounds.extend(position))
       }
     },
+    showMarkerInfo: function(){
+      console.log("show marker");
+      //console.log(id);
+      //google.maps.event.trigger(this.markers[id], 'click');
+    },
+    greet: function (event) {
+      // `this` inside methods points to the Vue instance
+      alert('Hello ' + this.name + '!');
+      // `event` is the native DOM event
+      if (event) {
+        alert(event.target.tagName)
+      }
+    }
   };
 </script>
 <style scoped>
+  p, li {
+    text-align: left;
+    font-family: Roboto,One Open Sans,Helvetica Neue,Helvetica,sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    font-style: normal;
+    text-decoration: none;
+    text-shadow: none;
+    color: rgb(0,84,165);
+
+  }
+
   .google-map {
     width: inherit;
     min-height: 430px;
     margin: 0 auto;
     background: gray;
+    margin-bottom: 10px;
   }
 </style>

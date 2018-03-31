@@ -1,6 +1,8 @@
 <template>
   <div id="app">
-    <GoogleMaps name="testje"></GoogleMaps>
+    <GoogleMaps name="google"></GoogleMaps>
+
+
   </div>
 </template>
 
@@ -11,6 +13,9 @@ export default {
   name: 'App',
   components: {
     GoogleMaps
+  },
+  methods: {
+
   }
 }
 </script>
