@@ -1,14 +1,7 @@
 <template>
   <div>
     <div class="google-map" :id="mapName"></div>
-    <p>Matrooskaarten kunnen worden aangekocht op de volgende locaties:</p>
-    <ul>
-      <!--<li v-for="contact in contactList" :key="contact.id" :value="contact" v-on:click="showMarkerInfo">-->
-      <li v-for="contact in contactList" :key="contact.id" :value="contact">
-        {{ contact.id }} {{contact.naam}}
-      </li>
-    </ul>
-    <!--<button v-on:click="greet">test</button>-->
+
   </div>
 </template>
 <script>
@@ -17,44 +10,32 @@
 
   export default {
     name: 'google',
-    props: ['name'],
+    props: ['name', 'contacts', 'infoId'],
     data: function () {
       return {
         mapName: this.name + "-map",
-        // markerCoordinates: [{
-        //   latitude: 51.501527,
-        //   longitude: -0.1921837
-        // }, {
-        //   latitude: 51.505874,
-        //   longitude: -0.1838486
-        // }, {
-        //   latitude: 51.4998973,
-        //   longitude: -0.202432
-        // }],
         currentLocation: null,
         map: null,
         bounds: null,
         markers: [],
-        contactList: [],
-        infoWindow: null,
+        contactList: this.contacts,
+        infoWindow: null
+      }
+    },
+    watch: {
+      contacts: function(){
+        console.log(this.contacts);
+        this.contactList = this.contacts; // Watcher gebruiken om ingeladen API property in PARENT door naar CHILD te zetten
+        this.verifyAllCoordinates(); // Eens parent data ingeladen, start dan de applicatie
+      },
+      infoId: function(){
+        console.log("Receiving new selection ID");
+        console.log("this.infoId");
       }
     },
     beforeMount() {
-      axios({
-        method: 'get',
-        url: `${this.$access.url}api/verkooppunten`,
-      }).then((resp) => {
-        //console.log(resp.data);
-        this.contactList = resp.data;
-        this.verifyAllCoordinates();
-
-      }).catch((resp) => {
-        console.log(resp);
-        //alert('Adressen server momenteel niet toegankelijk, probeer het later eens opnieuw!')
-      });
     },
     mounted() {
-      console.log(this.name)
       this.bounds = new google.maps.LatLngBounds();
       const element = document.getElementById(this.mapName);
       const mapCentre = {
@@ -64,33 +45,8 @@
       const options = {
         center: new google.maps.LatLng(mapCentre.latitude, mapCentre.longitude)
       };
-
       this.map = new google.maps.Map(element, options);
-
       this.infoWindow = new google.maps.InfoWindow;
-
-      // // Try HTML5 geolocation.
-      // let that = this;
-      // if (navigator.geolocation) {
-      //   navigator.geolocation.getCurrentPosition(function(position) {
-      //     let pos = {
-      //       lat: position.coords.latitude,
-      //       lng: position.coords.longitude
-      //     };
-      //
-      //     that.infoWindow.setPosition(pos);
-      //     that.infoWindow.setContent('Je bent hier.');
-      //     that.infoWindow.open(that.map);
-      //     that.map.setCenter(pos);
-      //   }, function() {
-      //     that.handleLocationError(true, that.infoWindow, that.map.getCenter());
-      //   });
-      // } else {
-      //   // Browser doesn't support Geolocation
-      //   that.handleLocationError(false, that.infoWindow, that.map.getCenter());
-      // }
-
-      this.init();
     },
     methods: {
       handleLocationError: function(browserHasGeolocation, infoWindow, pos) {
@@ -99,9 +55,6 @@
           'Error: The Geolocation service failed.' :
           'Error: Your browser doesn\'t support geolocation.');
         infoWindow.open(this.map);
-      },
-      init: function() {
-        // this.putMarkers();
       },
       verifyAllCoordinates: function() {
         // Check coordinates & add missing data
@@ -187,34 +140,9 @@
         this.map.fitBounds(that.bounds.extend(position))
       }
     },
-    showMarkerInfo: function(){
-      console.log("show marker");
-      //console.log(id);
-      //google.maps.event.trigger(this.markers[id], 'click');
-    },
-    // greet: function (event) {
-    //   // `this` inside methods points to the Vue instance
-    //   alert('Hello ' + this.name + '!');
-    //   // `event` is the native DOM event
-    //   if (event) {
-    //     alert(event.target.tagName)
-    //   }
-    // }
   };
 </script>
 <style scoped>
-  p, li {
-    text-align: left;
-    font-family: Roboto,One Open Sans,Helvetica Neue,Helvetica,sans-serif;
-    font-size: 16px;
-    font-weight: 400;
-    font-style: normal;
-    text-decoration: none;
-    text-shadow: none;
-    color: rgb(0,84,165);
-
-  }
-
   .google-map {
     width: inherit;
     min-height: 430px;
