@@ -1,10 +1,10 @@
 <template>
   <div id="app">
-    <GoogleMaps name="google" v-bind:contacts="contacts" v-bind:infoId="infoId"></GoogleMaps>
+    <GoogleMaps name="google" v-bind:contacts="contacts" v-bind:infoWindowContact="infoId"></GoogleMaps>
 
     <p>Matrooskaarten kunnen worden aangekocht op de volgende locaties:</p>
     <ul>
-      <li v-for="contact in contacts" :key="contact.id" :value="contact" v-on:click="showMarkerInfo(contact.id)">
+      <li v-for="contact in contacts" :key="contact.id" :value="contact" v-on:click="showMarkerInfo(contact)">
         {{ contact.id }} {{contact.naam}}
       </li>
     </ul>
@@ -34,7 +34,7 @@ export default {
       url: `${this.$access.url}api/verkooppunten`,
     }).then((resp) => {
       //console.log(resp.data);
-      console.log("initial api call received");
+      //console.log("initial api call received");
       this.contacts = resp.data;
 
     }).catch((resp) => {
@@ -43,9 +43,10 @@ export default {
     });
   },
   methods: {
-    showMarkerInfo: function(id){
-      console.log("show marker");
-      console.log(id);
+    showMarkerInfo: function(contact){
+      //console.log("Sending marker:");
+      //console.log(id);
+      this.infoId = contact;
     }
   }
 }
@@ -58,7 +59,7 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 0px;
+  margin-top: 0;
 }
 
 @media (max-width: 650px) {

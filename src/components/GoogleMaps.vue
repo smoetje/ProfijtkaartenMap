@@ -10,7 +10,7 @@
 
   export default {
     name: 'google',
-    props: ['name', 'contacts', 'infoId'],
+    props: ['name', 'contacts', 'infoWindowContact'],
     data: function () {
       return {
         mapName: this.name + "-map",
@@ -24,13 +24,52 @@
     },
     watch: {
       contacts: function(){
-        console.log(this.contacts);
         this.contactList = this.contacts; // Watcher gebruiken om ingeladen API property in PARENT door naar CHILD te zetten
         this.verifyAllCoordinates(); // Eens parent data ingeladen, start dan de applicatie
       },
-      infoId: function(){
-        console.log("Receiving new selection ID");
-        console.log("this.infoId");
+      infoWindowContact: function(){
+        console.log("Receiving new selection contact");
+        console.log(this.infoWindowContact);
+        this.infoWindow = this.infoWindowContact;
+        console.log(this.infoWindow);
+
+        let that = this;
+        let coord = JSON.parse(this.infoWindow.coord)
+        const position = new google.maps.LatLng(coord.lat, coord.lng);
+
+        let contentString = `<div id="content">
+          <div id="siteNotice">
+          </div>
+          <h1 id="firstHeading" class="firstHeading">${this.infoWindow.naam}</h1>
+          <div id="bodyContent">
+          <p>${this.infoWindow.adres}</p>
+          <p>${this.infoWindow.postcode} ${this.infoWindow.stad}</p>
+          <p>${this.infoWindow.tel}</p>
+          </div></div>`;
+
+        const infowindow = new google.maps.InfoWindow({
+          content: contentString
+        });
+
+        let icon = {
+          url: matrooskaart,
+          anchor: new google.maps.Point(25,50),
+          scaledSize: new google.maps.Size(50,50)
+        };
+
+        const marker = new google.maps.Marker({
+          position,
+          animation: google.maps.Animation.DROP,
+          icon: icon,
+          map: that.map
+        });
+
+
+          infowindow.open(that.map, marker);
+
+
+        this.markers.push(marker);
+        this.map.fitBounds(that.bounds.extend(position))
       }
     },
     beforeMount() {
@@ -134,9 +173,6 @@
         });
 
         this.markers.push(marker);
-
-        // console.log(this.markers);
-
         this.map.fitBounds(that.bounds.extend(position))
       }
     },
