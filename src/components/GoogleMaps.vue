@@ -8,7 +8,7 @@
         {{ contact.id }} {{contact.naam}}
       </li>
     </ul>
-    <button v-on:click="greet">test</button>
+    <!--<button v-on:click="greet">test</button>-->
   </div>
 </template>
 <script>
@@ -54,6 +54,7 @@
       });
     },
     mounted() {
+      console.log(this.name)
       this.bounds = new google.maps.LatLngBounds();
       const element = document.getElementById(this.mapName);
       const mapCentre = {
@@ -191,14 +192,14 @@
       //console.log(id);
       //google.maps.event.trigger(this.markers[id], 'click');
     },
-    greet: function (event) {
-      // `this` inside methods points to the Vue instance
-      alert('Hello ' + this.name + '!');
-      // `event` is the native DOM event
-      if (event) {
-        alert(event.target.tagName)
-      }
-    }
+    // greet: function (event) {
+    //   // `this` inside methods points to the Vue instance
+    //   alert('Hello ' + this.name + '!');
+    //   // `event` is the native DOM event
+    //   if (event) {
+    //     alert(event.target.tagName)
+    //   }
+    // }
   };
 </script>
 <style scoped>
