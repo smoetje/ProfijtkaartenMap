@@ -10,7 +10,7 @@
 
   export default {
     name: 'google',
-    props: ['name', 'contacts', 'infoWindowContact'],
+    props: ['name', 'contacts', 'selectedContactArrayId'],
     data: function () {
       return {
         mapName: this.name + "-map",
@@ -19,7 +19,10 @@
         bounds: null,
         markers: [],
         contactList: this.contacts,
-        infoWindow: null
+        showContactWindow: null,
+        contentStrings: [],
+        previousBox: null,
+        previousMarker: null,
       }
     },
     watch: {
@@ -27,50 +30,47 @@
         this.contactList = this.contacts; // Watcher gebruiken om ingeladen API property in PARENT door naar CHILD te zetten
         this.verifyAllCoordinates(); // Eens parent data ingeladen, start dan de applicatie
       },
-      infoWindowContact: function(){
-        console.log("Receiving new selection contact");
-        console.log(this.infoWindowContact);
-        this.infoWindow = this.infoWindowContact;
-        console.log(this.infoWindow);
+      selectedContactArrayId: function(){
+        if(this.selectedContactArrayId > -1) {
+          let coord = JSON.parse(this.contacts[this.selectedContactArrayId].coord);
+          const position = new google.maps.LatLng(coord.lat, coord.lng);
 
-        let that = this;
-        let coord = JSON.parse(this.infoWindow.coord)
-        const position = new google.maps.LatLng(coord.lat, coord.lng);
+          let icon = {
+            url: matrooskaart,
+            anchor: new google.maps.Point(25,50),
+            scaledSize: new google.maps.Size(50,50)
+          };
 
-        let contentString = `<div id="content">
-          <div id="siteNotice">
-          </div>
-          <h1 id="firstHeading" class="firstHeading">${this.infoWindow.naam}</h1>
-          <div id="bodyContent">
-          <p>${this.infoWindow.adres}</p>
-          <p>${this.infoWindow.postcode} ${this.infoWindow.stad}</p>
-          <p>${this.infoWindow.tel}</p>
-          </div></div>`;
+          if(this.previousBox){
+            this.previousBox.close();
+            this.previousMarker.setMap(null);
+          }
 
-        const infowindow = new google.maps.InfoWindow({
-          content: contentString
-        });
+          this.previousMarker = new google.maps.Marker({
+            position,
+            animation: google.maps.Animation.DROP,
+            icon: icon,
+            map: this.map
+          });
 
-        let icon = {
-          url: matrooskaart,
-          anchor: new google.maps.Point(25,50),
-          scaledSize: new google.maps.Size(50,50)
-        };
+          let that = this;
+          this.previousBox = new google.maps.InfoWindow({
+            content: this.contentStrings[this.selectedContactArrayId]
+          });
 
-        const marker = new google.maps.Marker({
-          position,
-          animation: google.maps.Animation.DROP,
-          icon: icon,
-          map: that.map
-        });
+          this.previousBox.open(that.map, this.previousMarker);
 
+          google.maps.event.addListener(this.previousBox, 'closeclick', function(){
+            that.previousBox = null;
+            that.previousMarker.setMap(null);
+            // Uitsturen naar parent die infoArrId terug op -1 zet... (anders slechts 1x klikbaar omdat watch niet verandert
+            that.$emit('startid', -1 );
+          });
 
-          infowindow.open(that.map, marker);
-
-
-        this.markers.push(marker);
-        this.map.fitBounds(that.bounds.extend(position))
-      }
+          this.map.setZoom(16);
+          this.map.setCenter(this.previousMarker.position);
+        }
+      },
     },
     beforeMount() {
     },
@@ -150,6 +150,8 @@
           <p>${contact.postcode} ${contact.stad}</p>
           <p>${contact.tel}</p>
           </div></div>`;
+
+        this.contentStrings.push(contentString);
 
         const infowindow = new google.maps.InfoWindow({
           content: contentString

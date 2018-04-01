@@ -1,14 +1,16 @@
 <template>
   <div id="app">
-    <GoogleMaps name="google" v-bind:contacts="contacts" v-bind:infoWindowContact="infoId"></GoogleMaps>
+    <GoogleMaps v-on:startid="getStartid" name="google" v-bind:contacts="contacts" v-bind:selectedContactArrayId="infoArrId"></GoogleMaps>
 
     <p>Matrooskaarten kunnen worden aangekocht op de volgende locaties:</p>
     <ul>
-      <li v-for="contact in contacts" :key="contact.id" :value="contact" v-on:click="showMarkerInfo(contact)">
-        {{ contact.id }} {{contact.naam}}
+      <li v-for="(contact, index) in contacts" :key="contact.id" :value="contact" v-on:click="showMarkerInfo(index)">
+        {{contact.naam}}
       </li>
     </ul>
     <button v-on:click="showMarkerInfo">test</button>
+
+    <!--<component v-on:startid="getStartid"></component>-->
 
   </div>
 </template>
@@ -25,7 +27,7 @@ export default {
   data: function () {
     return {
       contacts: [],
-      infoId: null
+      infoArrId: -1
     }
   },
   beforeMount() {
@@ -43,10 +45,11 @@ export default {
     });
   },
   methods: {
-    showMarkerInfo: function(contact){
-      //console.log("Sending marker:");
-      //console.log(id);
-      this.infoId = contact;
+    showMarkerInfo: function(index){
+      this.infoArrId = index;
+    },
+    getStartid: function(resetValue){
+      this.infoArrId = resetValue;
     }
   }
 }
