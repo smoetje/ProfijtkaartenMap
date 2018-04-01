@@ -67,6 +67,15 @@ export default {
     margin-left: -18px;
     margin-right: -18px;
   }
+
+  h4, p, ul {
+    margin-left: 18px;
+    margin-right: 18px;
+  }
+}
+
+ul {
+  list-style-type: square!important;
 }
 
 p, h4, li {
@@ -90,6 +99,5 @@ h4 {
   text-shadow: none;
   color: rgb(0,84,165);
 }
-
 
 </style>
