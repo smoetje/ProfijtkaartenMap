@@ -74,6 +74,10 @@ export default {
   }
 }
 
+li {
+  margin-left: 24px;
+}
+
 ul {
   list-style-type: square!important;
 }

@@ -144,11 +144,11 @@
         let contentString = `<div id="content">
           <div id="siteNotice">
           </div>
-          <h1 id="firstHeading" class="firstHeading">${contact.naam}</h1>
+          <h1 style="font-size: 18px; margin-top: 6px">${contact.naam}</h1>
           <div id="bodyContent">
-          <p>${contact.adres}</p>
+          <p class="addressline" style="margin-bottom: 0;">${contact.adres}</p>
           <p>${contact.postcode} ${contact.stad}</p>
-          <p>${contact.tel}</p>
+          <p style="margin-bottom: 0; font-size: 14px;">${contact.tel}</p>
           </div></div>`;
 
         this.contentStrings.push(contentString);
