@@ -2,16 +2,13 @@
   <div id="app">
     <GoogleMaps v-on:startid="getStartid" name="google" v-bind:contacts="contacts" v-bind:selectedContactArrayId="infoArrId"></GoogleMaps>
 
-    <p>Matrooskaarten kunnen worden aangekocht op de volgende locaties:</p>
+    <h4>Overzicht verkoopspunten Matrooskaarten:</h4>
+    <p>Klik op de kaart of in onderstaande lijst, voor meer details</p>
     <ul>
       <li v-for="(contact, index) in contacts" :key="contact.id" :value="contact" v-on:click="showMarkerInfo(index)">
-        {{contact.naam}}
+        <a href="#">{{contact.naam}}</a>
       </li>
     </ul>
-    <button v-on:click="showMarkerInfo">test</button>
-
-    <!--<component v-on:startid="getStartid"></component>-->
-
   </div>
 </template>
 
@@ -72,7 +69,7 @@ export default {
   }
 }
 
-p, li {
+p, h4, li {
   text-align: left;
   font-family: Roboto,One Open Sans,Helvetica Neue,Helvetica,sans-serif;
   font-size: 16px;
@@ -81,7 +78,18 @@ p, li {
   text-decoration: none;
   text-shadow: none;
   color: rgb(0,84,165);
-
 }
+
+h4 {
+  text-align: left;
+  font-family: Roboto,One Open Sans,Helvetica Neue,Helvetica,sans-serif;
+  font-size: 20px;
+  font-weight: bold;
+  font-style: normal;
+  text-decoration: none;
+  text-shadow: none;
+  color: rgb(0,84,165);
+}
+
 
 </style>
