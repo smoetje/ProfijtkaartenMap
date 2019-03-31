@@ -6,7 +6,7 @@
 </template>
 <script>
   import axios from 'axios';
-  import matrooskaart from '../assets/matrooskaart.svg';
+  import matrooskaart from '../assets/profijtkaart.svg';
 
   export default {
     name: 'google',
