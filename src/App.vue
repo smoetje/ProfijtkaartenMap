@@ -6,7 +6,7 @@
     <p>Klik op de kaart of in onderstaande lijst, voor meer details</p>
     <ul>
       <li v-for="(contact, index) in contacts" :key="contact.id" :value="contact" v-on:click="showMarkerInfo(index)">
-        <a href="#">{{contact.naam}}</a>
+        <a>{{contact.naam}}</a>
       </li>
     </ul>
   </div>
