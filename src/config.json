@@ -3,14 +3,14 @@
     "hosts": ["localhost:8080", "googlemaps.local"],
     "api":
     {
-      "url": "\/\/proggenerator.local/"
+      "url": "\/\/programmatie.smoetje.eu\/"
     }
   },
   "remote": {
     "hosts": ["www.paulusfeesten.be", "smoetje.be", "www.smoetje.be", "paulusfeesten.be"],
     "api":
     {
-      "url": "\/\/www.smoetje.eu\/"
+      "url": "\/\/programmatie.smoetje.eu\/"
     }
   }
 }

@@ -2,7 +2,7 @@
   <div id="app">
     <GoogleMaps v-on:startid="getStartid" name="google" v-bind:contacts="contacts" v-bind:selectedContactArrayId="infoArrId"></GoogleMaps>
 
-    <h4>Overzicht verkoopspunten Matrooskaarten:</h4>
+    <h4>Overzicht verkoopspunten Profijtkaarten:</h4>
     <p>Klik op de kaart of in onderstaande lijst, voor meer details</p>
     <ul>
       <li v-for="(contact, index) in contacts" :key="contact.id" :value="contact" v-on:click="showMarkerInfo(index)">
